@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ed" />
+    <meta
+      name="description"
+      content="IFCaça palavras: descubra a palavra de cinco letras no desafio diário ou jogue partidas ilimitadas."
+    />
+    <title>IFCaça palavras</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="words.js"></script>
+    <script defer src="answers.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <a class="brand" href="#inicio" aria-label="IFCaça palavras — início">
+          <span class="brand-if">IF</span><span class="brand-hunt">Caça</span>
+          <span class="brand-word">palavras</span>
+        </a>
+        <button class="text-button" id="help-button" type="button" aria-haspopup="dialog">
+          Como jogar
+        </button>
+      </header>
+
+      <main id="main-content">
+        <section class="mode-screen" id="mode-screen" aria-labelledby="welcome-title">
+          <div class="intro-copy">
+            <p class="eyebrow">UM JOGO DE PALAVRAS</p>
+            <h1 id="welcome-title">Descubra a palavra.</h1>
+            <p class="intro-description">
+              Cada palpite revela pistas. Use as letras para encontrar a resposta em até sete tentativas.
+            </p>
+          </div>
+
+          <div class="mode-options" aria-label="Escolha um modo de jogo">
+            <article class="mode-card mode-card-daily">
+              <div class="mode-card-copy">
+                <span class="mode-kicker">UM DESAFIO POR DIA</span>
+                <h2>Diário</h2>
+                <p>A mesma palavra para todo mundo. Você tem sete tentativas.</p>
+              </div>
+              <button class="primary-button" id="daily-mode-button" type="button">
+                Jogar o diário
+              </button>
+            </article>
+
+            <article class="mode-card mode-card-unlimited">
+              <div class="mode-card-copy">
+                <span class="mode-kicker">JOGUE À VONTADE</span>
+                <h2>Ilimitado</h2>
+                <p>Comece uma partida quando quiser. As palavras podem se repetir.</p>
+              </div>
+              <button class="secondary-button" id="unlimited-mode-button" type="button">
+                Jogar ilimitado
+              </button>
+            </article>
+          </div>
+
+          <form class="archive-form" id="archive-form">
+            <label for="archive-date">Jogar um desafio anterior</label>
+            <div class="archive-controls">
+              <input id="archive-date" name="date" type="date" required />
+              <button class="secondary-button" type="submit">Abrir desafio</button>
+            </div>
+          </form>
+
+          <p class="fine-print">Palavras em português brasileiro · Grátis · Sem cadastro</p>
+          <p class="stats-summary" id="stats-summary" aria-live="polite"></p>
+        </section>
+
+        <section class="game-screen" id="game-screen" aria-labelledby="game-title" hidden>
+          <div class="game-heading">
+            <button class="back-button" id="back-to-modes" type="button">
+              <span aria-hidden="true">←</span> Modos
+            </button>
+            <div class="game-heading-copy">
+              <p class="eyebrow" id="game-mode-label">DESAFIO DIÁRIO</p>
+              <h1 id="game-title">Diário</h1>
+              <p class="date-caption" id="date-caption"></p>
+            </div>
+            <span class="tries-label" id="tries-label">7 tentativas</span>
+          </div>
+
+          <div class="challenge-share-row">
+            <button class="text-button" id="share-challenge-button" type="button" hidden>
+              Compartilhar desafio
+            </button>
+          </div>
+
+          <p class="live-message" id="live-message" aria-live="polite" aria-atomic="true"></p>
+
+          <div
+            class="board"
+            id="board"
+            role="grid"
+            aria-label="Tabuleiro com sete tentativas e cinco letras"
+            tabindex="0"
+          ></div>
+
+          <div class="keyboard" id="keyboard" aria-label="Teclado na tela"></div>
+
+          <section class="result-panel" id="result-panel" aria-live="polite" hidden>
+            <p class="result-message" id="result-message"></p>
+            <p class="answer-line" id="answer-line" hidden></p>
+            <div class="result-actions">
+              <button class="primary-button" id="replay-button" type="button" hidden>
+                Jogar novamente
+              </button>
+              <button class="secondary-button" id="continue-button" type="button" hidden>
+                Ir para o Ilimitado
+              </button>
+              <button class="secondary-button" id="share-result-button" type="button" hidden>
+                Compartilhar resultado
+              </button>
+              <button class="text-button result-mode-button" id="result-modes-button" type="button">
+                Escolher outro modo
+              </button>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>IFCaça palavras</span>
+        <span>Feito para jogar no seu ritmo</span>
+      </footer>
+    </div>
+
+    <dialog class="help-dialog" id="help-dialog" aria-labelledby="help-title">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">REGRAS RÁPIDAS</p>
+          <h2 id="help-title">Como jogar</h2>
+        </div>
+        <button class="close-button" id="close-help-button" type="button" aria-label="Fechar regras">
+          ×
+        </button>
+      </div>
+      <p>Digite uma palavra de cinco letras e envie o palpite. Você tem sete tentativas.</p>
+      <ul class="color-rules">
+        <li><span class="color-swatch swatch-gray" aria-hidden="true"></span> Cinza: a letra não está na palavra.</li>
+        <li><span class="color-swatch swatch-yellow" aria-hidden="true"></span> Amarelo: a letra está na palavra, em outro lugar.</li>
+        <li><span class="color-swatch swatch-green" aria-hidden="true"></span> Verde: a letra está no lugar certo.</li>
+      </ul>
+      <p>Acentos são opcionais e letras podem se repetir. A palavra precisa ter cinco letras.</p>
+      <button class="primary-button dialog-done-button" id="done-help-button" type="button">Entendi</button>
+    </dialog>
+  </body>
+</html>
